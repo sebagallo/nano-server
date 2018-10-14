@@ -2,7 +2,12 @@ const express = require('express');
 const router = express.Router();
 const db = require('./../db');
 
-/* GET users listing. */
+router.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Cache-Control");
+    next();
+});
+
 router.get('/adcampaign', async function (req, res, next) {
     await db.connect();
     const campaigns = await db.getAllCampaigns();
