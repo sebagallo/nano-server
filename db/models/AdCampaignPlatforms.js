@@ -9,8 +9,8 @@ const AdCampaignPlatformsSchema = new mongoose.Schema({
     remaining_budget: Number,
     start_date: Date,
     end_date: Date,
-    target_audience: AdCampaignPlatformsTargetAudienceSchema,
-    creative: AdCampaignPlatformsCreativesSchema,
+    target_audiance: AdCampaignPlatformsTargetAudienceSchema,
+    creatives: AdCampaignPlatformsCreativesSchema,
     insights: AdCampaignPlatformsInsightsSchema
 });
 
