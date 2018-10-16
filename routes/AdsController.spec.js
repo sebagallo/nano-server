@@ -52,7 +52,6 @@ describe("AdsController", function () {
             .get("/adcampaign/100000002")
             .end(function (err, res) {
                 if (err) throw err;
-                console.log(res.body);
                 res.body[0].id.should.equal(100000002);
                 done();
             });

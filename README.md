@@ -24,3 +24,7 @@ You can pass 3 (three) environment variables to configure the mongodb connection
 After installation, run `npm start`. The server should be available on `http://127.0.0.1:2900`.
 
 Alternatively, there's a docker image available (this project is supposed to be run through docker-compose anyway)
+
+### Tests
+
+After installation, run `npm test`
