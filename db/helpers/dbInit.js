@@ -9,7 +9,6 @@ async function dbInit() {
         const parsedInitData = JSON.parse(initData);
         await db.seedCampaigns(parsedInitData);
     }
-    await db.disconnect();
 }
 
 module.exports = dbInit;
