@@ -1,11 +1,13 @@
 const mongoose = require('mongoose');
 const Models = require('./models');
 const MongodbConfig = require("./config/MongodbConfig");
+const logger = require('./helpers/logger').logger;
 
 const {AdCampaign} = Models;
 
 const connect = () => {
     return mongoose.connect(MongodbConfig.url, {
+        useNewUrlParser: true,
         autoReconnect: true,
         user: MongodbConfig.user,
         pass: MongodbConfig.pass
@@ -13,34 +15,32 @@ const connect = () => {
 };
 
 mongoose.connection.on('connecting', () => {
-    console.log('Connecting to MongoDB...');
+    logger.info('Connecting to MongoDB...');
 });
 
 mongoose.connection.on('connected', () => {
-    console.log('MongoDB Succesfully Connected');
+    logger.info('MongoDB Succesfully Connected');
 });
 
 mongoose.connection.on('error', err => {
-    console.error('MongoDB Connection Error');
+    logger.error('MongoDB Connection Error');
 });
 
 mongoose.connection.on('disconnected', err => {
-    console.error('MongoDB Disconnected');
+    logger.warn('MongoDB Disconnected');
 });
 
 mongoose.connection.once('open', () => {
-    console.log('MongoDB Connection Opened!');
+    logger.info('MongoDB Connection Opened!');
 });
 
 mongoose.connection.on('reconnected', () => {
-    console.log('MongoDB Reconnected!');
+    logger.info('MongoDB Reconnected!');
 });
 
-process.on('SIGINT', () => {
-    disconnect(() => {
-        console.log('Server Terminated, closing connection...');
-        process.exit(0);
-    });
+process.on('SIGINT', async () => {
+    await disconnect();
+    process.exit(0);
 });
 
 const disconnect = () => mongoose.connection.close();
